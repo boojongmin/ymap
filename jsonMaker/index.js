@@ -5,10 +5,10 @@ const result = {};
 
 async function main() {
     try {
-        fs.rmdirSync("../json", { recursive: true });
-        fs.mkdirSync("../json");
+        // fs.rmdirSync("../json", { recursive: true });
+        // fs.mkdirSync("../json");
 
-        const json = await fsPromises.readFile("input/suwon.json", "utf8");
+        const json = await fsPromises.readFile("input.json", "utf8");
         const originalData = JSON.parse(json);
         const datas = originalData.filter(
             (x) => x.REFINE_WGS84_LOGT !== "" || x.REFINE_WGS84_LAT !== ""
