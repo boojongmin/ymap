@@ -28,14 +28,18 @@ function getDisplayedPosition() {
     var y = (p.la + p.ka) / 2;
 
     geocoder.coord2Address(x, y, (x) => {
-        const a =
-            x[0].address.region_1depth_name +
-            "도" +
-            x[0].address.region_2depth_name.replace(" ", "");
+        try {
+            const a =
+                x[0].address.region_1depth_name +
+                "도" +
+                x[0].address.region_2depth_name.replace(" ", "");
 
-        if (filename !== a) {
-            filename = a;
-            getData(category);
+            if (filename !== a) {
+                filename = a;
+                getData(category);
+            }
+        } catch (e) {
+            console.error(e)
         }
     });
 }
