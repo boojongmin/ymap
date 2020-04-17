@@ -29,17 +29,21 @@ function getDisplayedPosition() {
 
     geocoder.coord2Address(x, y, (x) => {
         try {
+            // 축소를 계속하다보면 특정 레벨에서는 region_2depth_name에 구 정보를 보여주지 않아서 아래의 방어 로직 추가
+            // "수원시 권선구" 이렇게 안나오고 "수원시" 이렇게 나옴.
+            console.log(x[0].address.region_1depth_name, x[0].address.region_2depth_name, x[0].address.region_3depth_name)
+            if (x[0].address.region_2depth_name.split(" ").length == 1) return;
             const a =
                 x[0].address.region_1depth_name +
                 "도" +
-                x[0].address.region_2depth_name.replace(" ", "");
+                x[0].address.region_2depth_name.replace(" ", "") + x[0].address.region_3depth_name;
 
             if (filename !== a) {
                 filename = a;
                 getData(category);
             }
         } catch (e) {
-            console.error(e)
+            console.log(e)
         }
     });
 }
